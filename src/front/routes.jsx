@@ -10,6 +10,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import CrearUsuario from "./components/usuarios/CrearUsuario.jsx";
 import Usuarios from "./components/usuarios/Usuarios";
+import Login from "./components/auth/Login.jsx";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +22,7 @@ export const router = createBrowserRouter(
         
             <Route path="usuarios/crear" element={<CrearUsuario />} />
             <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/login" element={<Login />} />
 
         </Route>
     )

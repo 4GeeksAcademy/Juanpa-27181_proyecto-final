@@ -18,6 +18,5 @@ class User(db.Model):
             "id": self.id,
             "nombre": self.nombre,
             "correo": self.correo,
-            "contraseña": self.contraseña,
             "rol": self.rol
         }

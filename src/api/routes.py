@@ -3,8 +3,48 @@ from api.models import db, User
 from api.utils import APIException
 from flask import Blueprint
 from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+import datetime
+import jwt
 
 api = Blueprint('api', __name__)
+
+SECRET_KEY = os.getenv("JWT_SECRET", "default_secret_key")
+
+# -------------------------------
+#  LOGIN
+# -------------------------------
+@api.route('/login', methods=['POST'])   
+def login():
+    data = request.json
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"message": "Correo y contraseña son obligatorios"}), 400
+
+    user = User.query.filter_by(correo=email).first()
+
+    if not user:
+        return jsonify({"message": "Correo o contraseña incorrectos"}), 400
+
+    if not check_password_hash(user.contraseña, password):
+        return jsonify({"message": "Correo o contraseña incorrectos"}), 400
+
+    # Crear token JWT
+    token = jwt.encode({
+        "id": user.id,
+        "rol": user.rol,
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=12)
+    }, SECRET_KEY, algorithm="HS256")
+
+    return jsonify({
+        "message": "Login exitoso",
+        "token": token,
+        "rol": user.rol
+    }), 200
+
 
 # -------------------------------
 #  CREATE USER

@@ -11,6 +11,42 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_cors import CORS
+from api.routes_login import login_bp
+
+login_bp = Blueprint('login_bp', __name__)
+app.register_blueprint(login_bp, url_prefix="/api")
+
+SECRET = os.getenv("JWT_SECRET", "supersecret")
+
+@login_bp.route('/login', methods=['POST'])
+def login():
+    data = request.json
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"message": "Email y contraseña son obligatorios"}), 400
+
+    user = User.query.filter_by(correo=email).first()
+
+    if not user:
+        return jsonify({"message": "Correo o contraseña incorrectos"}), 400
+
+    if not check_password_hash(user.contraseña, password):
+        return jsonify({"message": "Correo o contraseña incorrectos"}), 400
+
+    # generar token
+    token = jwt.encode({
+        "id": user.id,
+        "rol": user.rol,
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+    }, SECRET, algorithm="HS256")
+
+    return jsonify({
+        "token": token,
+        "role": user.rol
+    }), 200
 
 # from models import Person
 
