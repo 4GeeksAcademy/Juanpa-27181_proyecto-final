@@ -1,0 +1,89 @@
+/* Colores principales de TeleDomoFarm */
+:root {
+  --verde-principal: #4CAF50;
+  --verde-secundario: #81C784;
+  --gris-claro: #F5F5F5;
+  --gris-oscuro: #616161;
+  --blanco: #FFFFFF;
+  --azul-suave: #64B5F6;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--gris-claro);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-card {
+  background-color: var(--blanco);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+}
+
+.login-card h2 {
+  color: var(--verde-principal);
+  margin-bottom: 30px;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card label {
+  text-align: left;
+  margin-bottom: 5px;
+  color: var(--gris-oscuro);
+  font-weight: 500;
+}
+
+.login-card input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid var(--gris-oscuro);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.login-card input:focus {
+  border-color: var(--verde-principal);
+  outline: none;
+  box-shadow: 0 0 5px var(--verde-secundario);
+}
+
+.login-card button {
+  background-color: var(--verde-principal);
+  color: var(--blanco);
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-card button:hover {
+  background-color: var(--verde-secundario);
+}
+
+.login-card a {
+  display: block;
+  margin-top: 15px;
+  color: var(--azul-suave);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-card a:hover {
+  text-decoration: underline;
+}
